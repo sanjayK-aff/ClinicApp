@@ -4,7 +4,12 @@ import Head from 'next/head'
 import Sidebar from './Sidebar';
 import MenuBarMobile from './MenuBarMobile';
 
-export default function Layout({ pageTitle, children }) {
+interface LayoutProps {
+    pageTitle?: string;
+    children: React.ReactNode;
+}
+
+export default function Layout({ pageTitle, children }: LayoutProps) {
     // Concatenate page title (if exists) to site title
     let titleConcat = "Responsive Sidebar Example";
     if (pageTitle) titleConcat = pageTitle + " | " + titleConcat;

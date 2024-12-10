@@ -6,7 +6,11 @@ import { FaUser } from 'react-icons/fa'
 
 import logo from '@/img/logo.svg'
 
-export default function MenuBarMobile({ setter }) {
+interface MenuBarMobileProps {
+    setter: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function MenuBarMobile({ setter }: MenuBarMobileProps) {
     return (
         <nav className="md:hidden z-20 fixed top-0 left-0 right-0 h-[60px] bg-black flex [&>*]:my-auto px-2">
             <button

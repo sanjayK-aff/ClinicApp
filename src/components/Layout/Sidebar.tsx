@@ -9,7 +9,12 @@ import { FaTshirt, FaRedhat } from 'react-icons/fa'
 
 import logo from '@/img/logo.svg'
 
-export default function Sidebar({ show, setter }) {
+interface SidebarProps {
+    show: boolean;
+    setter: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Sidebar({ show, setter }: SidebarProps) {
     const router = useRouter();
 
     // Define our base class
@@ -18,7 +23,7 @@ export default function Sidebar({ show, setter }) {
     const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
 
     // Clickable menu items
-    const MenuItem = ({ icon, name, route }) => {
+    const MenuItem = ({ icon, name, route }: { icon: React.ReactNode; name: string; route: string }) => {
         // Highlight menu item based on currently displayed route
         const colorClass = router.pathname === route ? "text-white" : "text-white/50 hover:text-white";
 

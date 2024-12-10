@@ -2,7 +2,11 @@
 import React from 'react'
 import Layout from './Layout'
 
-export default function DummyPage({ title }) {
+interface DummyPageProps {
+    title: string;
+}
+
+export default function DummyPage({ title }: DummyPageProps) {
     return (
         <Layout
             pageTitle={title}
