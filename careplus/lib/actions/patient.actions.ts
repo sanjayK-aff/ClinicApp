@@ -34,7 +34,7 @@ export const createUser = async (user: CreateUserParams) => {
       const existingUser = await users.list([
         Query.equal("email", [user.email]),
       ]);
-
+      console.log("existingUser", existingUser);
       return existingUser.users[0];
     }
     console.error("An error occurred while creating a new user:", error);
@@ -72,14 +72,14 @@ export const registerPatient = async ({
     }
 
     const newPatient = await databases.createDocument(
-        DATABASE_ID!,
-        PATIENT_COLLECTION_ID!,
-        ID.unique(),
-        {
-          identificationDocumentId: file?.$id || null,
-          identificationDocumentUrl: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view??project=${PROJECT_ID}`,
-          ...patient
-        }
+      DATABASE_ID!,
+      PATIENT_COLLECTION_ID!,
+      ID.unique(),
+      {
+        identificationDocumentId: file?.$id || null,
+        identificationDocumentUrl: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view??project=${PROJECT_ID}`,
+        ...patient
+      }
     )
 
     return parseStringify(newPatient)

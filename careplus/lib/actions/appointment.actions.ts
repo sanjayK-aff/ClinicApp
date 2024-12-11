@@ -3,13 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { ID, Query } from "node-appwrite";
 
-import { Appointment } from "@/types/appwrite.types";
+import { Appointment, Patient } from "@/types/appwrite.types";
 
 import {
   APPOINTMENT_COLLECTION_ID,
   DATABASE_ID,
   databases,
   messaging,
+  PATIENT_COLLECTION_ID,
 } from "../appwrite.config";
 import { formatDateTime, parseStringify } from "../utils";
 
@@ -41,6 +42,7 @@ export const getRecentAppointmentList = async () => {
       [Query.orderDesc("$createdAt")]
     );
 
+    
     // const scheduledAppointments = (
     //   appointments.documents as Appointment[]
     // ).filter((appointment) => appointment.status === "scheduled");
@@ -85,6 +87,20 @@ export const getRecentAppointmentList = async () => {
       initialCounts
     );
 
+    // const tempappointments = appointments.documents as Appointment[];
+     console.log("appointments", appointments);
+    await Promise.all(
+      appointments.documents.map(async (appointment) => {
+        console.log("appointment", appointment);
+        console.log("appointment.patient", appointment.patient);
+        const patientResponse = await databases.getDocument(
+          DATABASE_ID!,
+          PATIENT_COLLECTION_ID!,
+          appointment.patient
+        );
+        appointment.patient = patientResponse;
+      })
+    );
     const data = {
       totalCount: appointments.total,
       ...counts,

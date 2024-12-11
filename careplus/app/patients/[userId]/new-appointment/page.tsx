@@ -7,11 +7,14 @@ import { getPatient } from "@/lib/actions/patient.actions";
 import * as Sentry from "@sentry/nextjs";
 
 export default async function NewAppointment({
-  params: { userId },
+  params: { userId },searchParams
 }: SearchParamProps) {
-  const patient = await getPatient(userId);
+  const patientId =  (typeof searchParams.patientId === 'string' ? searchParams.patientId : '') as string;
+  console.log("patientId", patientId);
+  // const patient = await getPatient(userId);
 
-  Sentry.metrics.set("user_view_new-appointment", patient.name);
+    Sentry.metrics.set("user_view_new-appointment", patientId||userId);
+
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -26,7 +29,7 @@ export default async function NewAppointment({
         />
 
           <AppointmentForm
-            patientId={patient.$id}
+            patientId={patientId||""}
             userId={userId}
             type="create"
           />
