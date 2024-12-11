@@ -34,7 +34,7 @@ export default async function NewAppointment({
             type="create"
           />
 
-          <p className="copyright mt-10 py-12">© 2024 CarePulse</p>
+          <p className="copyright mt-10 py-12">© 2024 care buddy +</p>
         </div>
       </section>
 
